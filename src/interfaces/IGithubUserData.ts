@@ -1,0 +1,34 @@
+export default interface IGithubUserData {
+  avatar_url: null | string;
+  bio: null | boolean;
+  blog: null | string;
+  company: null | string;
+  created_at: string;
+  email: null | string;
+  events_url: null | string;
+  followers: null | number;
+  followers_url: null | string;
+  following: null | number;
+  following_url: null | string;
+  gists_url: null | string;
+  gravatar_id: null | string;
+  hireable: null | boolean;
+  html_url: null | string;
+  id: null | number;
+  location: null | string;
+  login: null | string;
+  name: null | string;
+  node_id: null | string;
+  organizations_url: null | string;
+  public_gists: null | number;
+  public_repos: null | number;
+  received_events_url: null | string;
+  repos_url: null | string;
+  site_admin: null | boolean;
+  starred_url: null | string;
+  subscriptions_url: null | string;
+  twitter_username: null | string;
+  type: null | string;
+  updated_at: null | string;
+  url: null | string;
+}
