@@ -19,7 +19,7 @@ export default function SocialActivitySectionComponent(
           darktheme={props.darktheme}
           activitydata={props.activitydata || null}
           hashref={props.hashref}
-          href={props.href ? `https://twitter.com/${props.href}` : undefined}
+          href={props.href ? props.href : undefined}
           target={props.target ? props.target : undefined}
         >
           {props.activitydata || "Not Available"}

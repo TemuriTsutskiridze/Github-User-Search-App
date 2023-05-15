@@ -58,6 +58,22 @@ function App() {
     localStorage.setItem("THEME", JSON.stringify(darkTheme));
   }, [darkTheme]);
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(storedUser);
+      getGithubUserData(storedUser);
+    } else {
+      getGithubUserData("octocat");
+    }
+  }, []);
+
+  const handleUserChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setUser(value);
+    localStorage.setItem("user", value);
+  };
+
   return (
     <>
       <GlobalStyles darktheme={darkTheme} />
@@ -82,7 +98,7 @@ function App() {
           darktheme={darkTheme}
           searchicon={SearchIcon}
           value={user || ""}
-          onChange={(event) => setUser(event.target.value)}
+          onChange={handleUserChange}
         ></SearchInput>
         <SearchButton
           onClick={() => {
@@ -162,7 +178,11 @@ function App() {
               src={TwitterIcon}
               darktheme={darkTheme}
               hashref={"true"}
-              href={data?.twitter_username}
+              href={
+                data?.twitter_username
+                  ? `https://twitter.com/${data?.twitter_username}`
+                  : null
+              }
               target="_blank"
             />
             <SocialActivitySectionComponent
@@ -475,7 +495,7 @@ const SocialActivity = styled.div`
 
   @media (min-width: 48em) {
     width: 45rem;
-    gap: 6.5rem;
+    gap: 4.5rem;
   }
 `;
 
