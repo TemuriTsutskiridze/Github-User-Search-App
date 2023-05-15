@@ -15,6 +15,9 @@ import IGithubUserData from "./interfaces/IGithubUserData";
 import IThemeToggle from "./interfaces/IThemeToggle";
 import ISearchInput from "./interfaces/ISearchInput";
 
+import ActivityInfoComponent from "./components/ActivityInfo";
+import SocialActivitySectionComponent from "./components/SocialActivitySection";
+
 function App() {
   const [darkTheme, setDarkTheme] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -54,6 +57,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem("THEME", JSON.stringify(darkTheme));
   }, [darkTheme]);
+
   return (
     <>
       <GlobalStyles darktheme={darkTheme} />
@@ -115,101 +119,60 @@ function App() {
         </Bio>
 
         <Avtivity darktheme={darkTheme}>
-          <ActivityInfo>
-            <ActivityInfoTitle darktheme={darkTheme}>Repos</ActivityInfoTitle>
-            <ActivityInfoNumber darktheme={darkTheme}>
-              {data?.public_repos}
-            </ActivityInfoNumber>
-          </ActivityInfo>
-          <ActivityInfo>
-            <ActivityInfoTitle darktheme={darkTheme}>
-              Followers
-            </ActivityInfoTitle>
-            <ActivityInfoNumber darktheme={darkTheme}>
-              {data?.followers}
-            </ActivityInfoNumber>
-          </ActivityInfo>
-          <ActivityInfo>
-            <ActivityInfoTitle darktheme={darkTheme}>
-              Following
-            </ActivityInfoTitle>
-            <ActivityInfoNumber darktheme={darkTheme}>
-              {data?.following}
-            </ActivityInfoNumber>
-          </ActivityInfo>
+          <ActivityInfoComponent
+            darktheme={darkTheme}
+            title={"Repos"}
+            data={data?.public_repos}
+          />
+          <ActivityInfoComponent
+            darktheme={darkTheme}
+            title={"Followers"}
+            data={data?.followers}
+          />
+          <ActivityInfoComponent
+            darktheme={darkTheme}
+            title={"Following"}
+            data={data?.following}
+          />
         </Avtivity>
 
         <SocialActivity>
           <SocialActivitySectionContainer>
-            <SocialActivitySection>
-              <SocialActivityIcon
-                activitydata={data?.location || null}
-                src={LocationIcon}
-                darktheme={darkTheme}
-              ></SocialActivityIcon>
-              <SocialActivityTitle
-                darktheme={darkTheme}
-                activitydata={data?.location || null}
-                hashref={"false"}
-              >
-                {data?.location || "No Location"}
-              </SocialActivityTitle>
-            </SocialActivitySection>
-
-            <SocialActivitySection>
-              <SocialActivityIcon
-                activitydata={data?.blog || null}
-                src={WebsiteIcon}
-                darktheme={darkTheme}
-              ></SocialActivityIcon>
-              <SocialActivityTitle
-                darktheme={darkTheme}
-                activitydata={data?.blog || null}
-                hashref={"true"}
-                href={data?.blog ? data?.blog : undefined}
-                target="_blank"
-              >
-                {data?.blog || "No Blog"}
-              </SocialActivityTitle>
-            </SocialActivitySection>
+            <SocialActivitySectionComponent
+              activitydata={data?.location || null}
+              src={LocationIcon}
+              darktheme={darkTheme}
+              hashref={"false"}
+              href={undefined}
+              target={undefined}
+            />
+            <SocialActivitySectionComponent
+              activitydata={data?.blog || null}
+              src={WebsiteIcon}
+              darktheme={darkTheme}
+              hashref={"true"}
+              href={data?.blog}
+              target="_blank"
+            />
           </SocialActivitySectionContainer>
 
           <SocialActivitySectionContainer>
-            <SocialActivitySection>
-              <SocialActivityIcon
-                activitydata={data?.twitter_username || null}
-                src={TwitterIcon}
-                darktheme={darkTheme}
-              ></SocialActivityIcon>
-              <SocialActivityTitle
-                darktheme={darkTheme}
-                activitydata={data?.twitter_username || null}
-                hashref={"true"}
-                href={
-                  data?.twitter_username
-                    ? `https://twitter.com/${data?.twitter_username}`
-                    : undefined
-                }
-                target="_blank"
-              >
-                {data?.twitter_username || "Not Available"}
-              </SocialActivityTitle>
-            </SocialActivitySection>
-
-            <SocialActivitySection>
-              <SocialActivityIcon
-                activitydata={data?.company || null}
-                src={CompanyIcon}
-                darktheme={darkTheme}
-              ></SocialActivityIcon>
-              <SocialActivityTitle
-                darktheme={darkTheme}
-                activitydata={data?.company || null}
-                hashref={"false"}
-              >
-                {data?.company || "No company"}
-              </SocialActivityTitle>
-            </SocialActivitySection>
+            <SocialActivitySectionComponent
+              activitydata={data?.twitter_username || null}
+              src={TwitterIcon}
+              darktheme={darkTheme}
+              hashref={"true"}
+              href={data?.twitter_username}
+              target="_blank"
+            />
+            <SocialActivitySectionComponent
+              activitydata={data?.company || null}
+              src={CompanyIcon}
+              darktheme={darkTheme}
+              hashref={"false"}
+              href={undefined}
+              target={undefined}
+            />
           </SocialActivitySectionContainer>
         </SocialActivity>
       </MainContainer>
@@ -502,44 +465,6 @@ const Avtivity = styled.div<IThemeToggle>`
   `}
 `;
 
-const ActivityInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  align-items: center;
-
-  @media (min-width: 48em) {
-    align-items: flex-start;
-  }
-`;
-
-const ActivityInfoTitle = styled.p<IThemeToggle>`
-  ${(props) => css`
-    font-size: 1.1rem;
-    line-height: 1.629rem;
-    color: ${props.darktheme ? "#FFFFFF" : "#4B6A9B"};
-
-    @media (min-width: 48em) {
-      font-size: 1.3rem;
-      line-height: 1.925rem;
-    }
-  `}
-`;
-
-const ActivityInfoNumber = styled.p<IThemeToggle>`
-  ${(props) => css`
-    font-size: 1.6rem;
-    line-height: 2.37rem;
-    color: ${props.darktheme ? "#FFFFFF" : "#2B3442"};
-    font-weight: 700;
-
-    @media (min-width: 48em) {
-      font-size: 2.2rem;
-      line-height: 3.258rem;
-    }
-  `}
-`;
-
 const SocialActivity = styled.div`
   display: flex;
   gap: 1.6rem;
@@ -554,52 +479,10 @@ const SocialActivity = styled.div`
   }
 `;
 
-const SocialActivitySection = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-`;
-
 const SocialActivitySectionContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 `;
 
-interface ISocialActivityData {
-  activitydata: string | null;
-  darktheme: boolean;
-}
-
-const SocialActivityIcon = styled.img<ISocialActivityData>`
-  ${(props) => css`
-    opacity: ${props.activitydata ? "1" : "0.5"};
-    filter: brightness(${props.darktheme ? "100" : null});
-  `}
-`;
-interface ISocialActivityTitle {
-  darktheme: boolean;
-  activitydata: string | null;
-  hashref: string;
-}
-
-const SocialActivityTitle = styled.a<ISocialActivityTitle>`
-  ${(props) => css`
-    font-size: 1.3rem;
-    line-height: 1.925rem;
-    color: ${props.darktheme ? "#FFFFFF" : "#4B6A9B"};
-    opacity: ${props.activitydata ? "1" : "0.5"};
-    text-decoration: none;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: ${props.hashref === "true" ? "underline" : "none"};
-    }
-
-    @media (min-width: 48em) {
-      font-size: 1.5rem;
-      line-height: 2.222rem;
-    }
-  `}
-`;
 export default App;

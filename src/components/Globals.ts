@@ -1,9 +1,7 @@
-import { DefaultTheme, createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { css } from "styled-components";
 
-interface IGlobalStyles {
-  darktheme: boolean;
-}
+import IGlobalStyles from "../interfaces/IGlobalStyles";
 
 export const GlobalStyles = createGlobalStyle<IGlobalStyles>`
     ${(props) => css`
