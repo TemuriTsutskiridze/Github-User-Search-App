@@ -99,6 +99,12 @@ function App() {
           searchicon={SearchIcon}
           value={user || ""}
           onChange={handleUserChange}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              getGithubUserData(user);
+              setUser("");
+            }
+          }}
         ></SearchInput>
         <SearchButton
           onClick={() => {
