@@ -4,30 +4,36 @@
 
 ## [Live URL](https://github-user-search-app-chi-two.vercel.app)
 
+## Technologies Used
+
+- Vite
+- React
+- TypeScript
+- Styled Components
+- axios
+
+## Getting Started
+
+To get a local copy of the project up and running, follow these steps:
+
+1.  Clone the repository:
+
+    ```shell
+    git clone https://github.com/your-username/project-name.git
+    ```
+
+2.  Install the dependencies:
+
+    ```shell
+    cd project-name
+    npm install
+    ```
+
+3.  Start local server:
+    ```shell
+    npm run dev
+    ```
+
+## Design Preview
+
 ![image1](./public/preview/preview.jpg)
-
-## Made with
-
-### Vite
-
-### React
-
-### Typescript
-
-### Styled Components
-
-### Axios
-
-## How to download
-
-### 1. Clone repository
-
-### 2. Go into project folder
-
-### 3. run "npm install" in terminal to download node modules
-
-### 4. run "npm install styled-components" to install styled-components ("yarn add styled-components" if you use yarn) + run "npm install --save-dev @types/styled-components" to install TypeScript definitions on DefinitelyTyped
-
-### 5. run "npm install axios" to install axios
-
-### 6. run "npm run dev" in terminal to start live server
