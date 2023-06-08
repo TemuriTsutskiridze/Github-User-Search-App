@@ -19,7 +19,7 @@ To get a local copy of the project up and running, follow these steps:
 1.  Clone the repository:
 
     ```shell
-    git clone https://github.com/your-username/project-name.git
+    git clone https://github.com/TemuriTsutskiridze/Github-User-Search-App.git
     ```
 
 2.  Install the dependencies:
